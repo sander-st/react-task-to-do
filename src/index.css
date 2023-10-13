@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+@layer components {
+  .f-input {
+    @apply py-1.5 px-3 block w-full rounded-md bg-gray-bg-sec font-bold focus:outline-none ring-2 ring-transparent focus:ring-violetColor hover:ring-violetColor transition-shadow ease-in;
+  }
+  .f-input-time {
+    @apply ring-2 ring-gray-bg-sec py-1.5 px-3 rounded-e-md bg-gray-bg-sec ring-transparent focus:ring-violetColor hover:ring-inset hover:ring-violetColor transition-shadow ease-in focus:outline-none focus:ring-inset;
+  }
+}
+
+.text-nowrap {
+  text-wrap: nowrap;
+}
