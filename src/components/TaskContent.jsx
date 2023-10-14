@@ -1,8 +1,11 @@
+import { ProviderContextTask } from "../context/ProviderTask";
 import LineVertical from "../widgets/LineVertical";
-import FloatingPoint from "../widgets/FloatingPoint";
 import TaskCard from "./TaskCard";
+import { useContext } from "react";
 
 function TaskContent() {
+  const { stateTodos } = useContext(ProviderContextTask);
+  // console.log(stateTodos);
   return (
     <section className="py-4">
       <div className="mb-5">
@@ -14,12 +17,15 @@ function TaskContent() {
       <div className="relative pl-6 border-2">
         <div className=" flex flex-col gap-4">
           <LineVertical />
-          <TaskCard />
-          <TaskCard disabled={true} />
-          <TaskCard disabled={true} />
-          <TaskCard disabled={true} />
-          <TaskCard disabled={true} />
-          <TaskCard disabled={true} />
+          {/* <TaskCard />
+          <TaskCard disabled={true} /> */}
+          {stateTodos.length != 0 ? (
+            stateTodos.map((todo) => <TaskCard key={todo.id} todo={todo} />)
+          ) : (
+            <h4 className="text-3xl font-bold text-center">
+              No hay tareas para mostrar
+            </h4>
+          )}
         </div>
       </div>
     </section>

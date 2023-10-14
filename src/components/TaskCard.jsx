@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import ButtonItem from "../widgets/ButtonItem";
 import FloatingPoint from "../widgets/FloatingPoint";
+import { ProviderContextTask } from "../context/ProviderTask";
 
-function TaskCard({ disabled = false }) {
+function TaskCard({ disabled = false, todo }) {
+  const { handleDeletTodo } = useContext(ProviderContextTask);
+
   const taskIsDisabled = {
     footer: "hidden",
     colorBg: "bg-gray-bg-sec",
@@ -13,6 +17,10 @@ function TaskCard({ disabled = false }) {
     colorBg: "bg-linear-violet-blu",
     textColor: "text-white",
     textColorTrans: "text-white/70",
+  };
+
+  const handleDelet = (id) => {
+    handleDeletTodo(id);
   };
 
   return (
@@ -30,28 +38,29 @@ function TaskCard({ disabled = false }) {
       />
 
       <header className="sm:flex sm:justify-between sm:items-center">
-        <h3 className="font-bold text-2xl">Design Metting</h3>
+        <h3 className="font-bold text-2xl">{todo.title}</h3>
         <div
           className={`text-sm ${
             disabled ? taskIsDisabled.textColor : taskIsActive.textColorTrans
           } font-semibold`}>
-          <time>09:30 / 10:30</time>
+          <time>
+            {todo.startTime} / {todo.endTime}
+          </time>
         </div>
       </header>
 
       <p className={disabled ? taskIsDisabled.styleParrafo : undefined}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab, earum
-        minus debitis labore ipsa exercitationem nostrum animi! Nobis repellat
-        neque, animi nihil provident nemo dolore magnam aut laborum id.
-        Repudiandae? Hic labore cupiditate laboriosam voluptatem! Temporibus
-        dolor pariatur eligendi modi facilis, voluptas id laboriosam qui iste?
-        Sapiente ipsa et voluptas, a, totam quasi at hic excepturi doloribus,
-        quae ex ratione!
+        {todo.description}
       </p>
 
       <footer className={`${disabled && taskIsDisabled.footer}`}>
         <div className="flex items-end justify-center gap-3">
-          <ButtonItem FaIcon="fa-trash" />
+          <ButtonItem
+            FaIcon="fa-trash"
+            onClick={() => {
+              handleDelet(todo.id);
+            }}
+          />
           <ButtonItem FaIcon="fa-pen-to-square" />
         </div>
         <div className="flex items-center justify-center font-bold text-sm mt-1.5">
